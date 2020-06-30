@@ -1,0 +1,56 @@
+service:
+  name: serverless-api
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 512
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+functions:  
+  createVaga:
+    handler: handler.createVaga
+    events:
+      - http:
+          method: post
+          path: createVaga
+          cors: true
+
+  findVaga:
+    handler: handler.findVaga
+    events:
+      - http:
+          method: get
+          path: findVaga
+          cors: true
+
+  deleteVaga:
+    handler: handler.deleteVaga
+    events:
+      - http:
+          method: delete
+          path: deleteVaga/{id}
+          cors: true
+  
+  updateVaga:
+    handler: handler.updateVaga
+    events:
+      - http:
+          method: put
+          path: updateVaga/{id}
+          cors: true

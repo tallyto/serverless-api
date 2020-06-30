@@ -3,7 +3,7 @@ import "source-map-support/register";
 import { connect } from "mongoose";
 import Vaga from "./src/schema/vaga";
 const MONGO_URL =
-  "mongodb+srv://otallyto:Rodrigues_2019@cluster0-jq9ag.mongodb.net/serverless?retryWrites=true&w=majority";
+  "";
 
 export const createVaga: APIGatewayProxyHandler = async (event, _context) => {
   try {

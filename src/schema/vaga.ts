@@ -10,6 +10,6 @@ const VagaSchema = new Schema({
   title: String,
   description: String,
   technologies: Array,
-});
+},{timestamps: true});
 
 export default model<VagaInterface>("Vaga", VagaSchema);

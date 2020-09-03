@@ -1,14 +1,14 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import "source-map-support/register";
-import { connect } from "mongoose";
+import { connect, disconnect } from "mongoose";
 import Vaga from "./src/schema/vaga";
-const MONGO_URL =
-  "";
+const MONGO_URL = process.env.MONGO_URL
 
 export const createVaga: APIGatewayProxyHandler = async (event, _context) => {
   try {
     await connect(MONGO_URL, { useNewUrlParser: true });
     const vaga = await Vaga.create(JSON.parse(event.body));
+    await disconnect()
     return {
       statusCode: 200,
       body: JSON.stringify(vaga),
@@ -25,6 +25,7 @@ export const findVaga: APIGatewayProxyHandler = async (event, _context) => {
   try {
     await connect(MONGO_URL, { useNewUrlParser: true });
     const vaga = await Vaga.find();
+    await disconnect()
     return {
       statusCode: 200,
       body: JSON.stringify(vaga),
@@ -42,6 +43,7 @@ export const deleteVaga: APIGatewayProxyHandler = async (event, _context) => {
   try {
     await connect(MONGO_URL, { useNewUrlParser: true });
     await Vaga.findByIdAndRemove(id);
+    await disconnect()
     return {
       statusCode: 200,
       body: JSON.stringify({ message: "success" }),
@@ -61,6 +63,7 @@ export const updateVaga: APIGatewayProxyHandler = async (event, _context) => {
     const vaga = await Vaga.findByIdAndUpdate(id, JSON.parse(event.body), {
       new: true,
     });
+    await disconnect()
     return {
       statusCode: 200,
       body: JSON.stringify(vaga),

@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@types/mongoose": "^5.7.29",
-    "mongoose": "^5.9.20",
+    "mongoose": "^5.13.15",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
